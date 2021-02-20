@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机房维修</title>
+    <link rel="stylesheet" href="../public/css/index.css">
+    <link rel="stylesheet" href="../public/css/admin_repair.css">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header-container">
+            <div class="header-l">
+                <div class="logo">
+                    <img src="../public/img/header-logo.png" alt=""/>
+                </div>
+                <div class="header-meun">
+                    <img src="../public/img/menu.png" alt="菜单"/>
+                    <div class="header-cd">
+                        <ul class="flex-cd">
+                            <li><a href="admin_index.html" target="_self">首页</a></li>
+                            <li><a href="admin_lookCR.html">管理机房</a></li>
+                            <li><a href="admin_managerTeacher.html">教师管理</a></li>
+                            <li><a href="admin_repair.html">机房保修</a></li>
+                            <li><a href="admin_change.html">修改密码</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="header-r-container">
+                <div class="header-m">
+                    <input type="text" placeholder="请输入关键词"/>
+                    <img src="../public/img/search.png" alt="搜索"/>
+                </div>
+                <div class="header-r">
+                    <p class="header-name">管理员：您好！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="repair container-bg">
+    <div class="container">
+        <div class="repair-container">
+            <div class="repair-left">
+                <p class="repair-title"><em></em>报修展示：</p>
+                <div class="repair-desc-container">
+                    <div class="repair-desc">
+                        <div class="repair-desc-title">
+                            <p class="repair-name"></p>
+                            <p class="repair-date"></p>
+                        </div>
+                        <div class="repair-desc-desc"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="repair-right">
+                <p class="repair-title">保修备注：<em></em></p>
+                <div class="repair-desc-container">
+                    <div class="repair-right-desc-container">
+                        <p class="repair-name repair-info">报修人员：</p>
+                        <input type="text">
+                    </div>
+                    <div class="repair-right-container">
+                        <p class=" repair-info repair-content">报修内容：</p>
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="repair-right-desc-container">
+                        <p class="repair-class repair-info">报修教室：</p>
+                        <input type="text">
+                    </div>
+                    <div class="repair-submit">
+                        <input type="submit" value="提交">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="return">返回上一级</button>
+    </div>
+</div>
+<script src="../public/js/jquery.js"></script>
+<script src="../public/js/index.js"></script>
+</body>
+</html>

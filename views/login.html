@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>登录界面</title>
+    <link rel="stylesheet" href="../public/css/login.css">
+</head>
+<body>
+ <div id="app">
+<div class="dowebok">
+    <div class="logo"></div>
+    <div class="form-item">
+        <input v-model="userName" id="username" type="text" autocomplete="off" placeholder="账号为手机号">
+        <p class="tip">请输入合法的手机号</p>
+    </div>
+    <div class="form-item">
+        <input v-model="passWord" id="password" type="password" autocomplete="off" placeholder="登录密码">
+        <p class="tip">账号或密码不正确</p>
+    </div>
+    <div class="form-item">
+        <button id="submit" @click="login">登 录</button>
+    </div>
+    <div class="reg-bar">
+        <a class="reg" href="/register">立即注册</a>
+        <a class="forget" href="/admin">跳转到后台</a>
+    </div>
+</div>
+</div>
+<script src="../public/lib/vue-2.4.0.js"></script>
+<script src="../public/lib/sweetalert.min.js"></script>
+<script src="../public/lib/axios.min.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:function() {
+            return {
+                userName:'',
+                passWord:''
+            }         
+        },
+        mounted:function(){
+            var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+            if(userInfo){
+                swal({
+                    title: "您已登录，正在跳转页面",
+                    icon: "success",
+                    button: false,
+                    timer: 1300,
+                }).then(function(){
+                    window.location.href = "/index";
+                });
+            }
+        },
+        
+        methods:{
+            login: function(){
+                let that = this;
+                axios.post('/login',{
+                    userName: that.userName,
+                    passWord: that.passWord
+                })
+                .then((res) => {
+                    console.log(res);
+                    if(res.data.status){
+                        localStorage.setItem('userInfo',JSON.stringify(res.data.userInfo));
+                        window.location.href = '/index';
+                    }else {
+                        swal({
+                        title: "登录失败！",
+                        icon: "error",
+                        button: false,
+                        timer: 1000,
+                    });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+            });
+            }       
+        }
+    })
+</script>
+</body>
+</html>

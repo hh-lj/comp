@@ -1,0 +1,43 @@
+.teacherManager.container-bg{
+    height: auto;
+    padding-top: 40px;
+}
+.teacherManager .teacherManager-container{
+    width: 600px;
+    background-color:#1bcbfd9c;
+    height: auto;
+    padding-bottom:30px;
+    margin: 30px auto;
+    border-radius: 10px;
+    position: relative;
+}
+.teacherManager .teacherManager-container .teacherManager-info{
+    padding-top: 20px;
+    width: 100%;
+}
+.teacherManager .teacherManager-container .teacherManager-info tr{
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #ffffff;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    box-sizing:border-box;
+    padding: 0 20px;
+}
+.teacherManager .teacherManager-container .teacherManager-info tr th{
+    height: 50px;
+}
+.teacherManager .teacherManager-container .teacherManager-info tr td{
+    text-align: center;
+}
+.teacherManager .teacherManager-container .teacherManager-info tr td button{
+    width: 50px;
+    height: 40px;
+    background-color: #033761;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    color: #ffffff;
+    cursor: pointer;
+}

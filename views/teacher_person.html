@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="../public/css/person.css"/>
+</head>
+<body>
+<header id="header"></header>
+<div class="person">
+    <div class="container">
+        <div class="right">
+            <div class="person-list">
+                <div class="person-desc">
+                    <span>头像：</span>
+                    <input type="file" id="person-file" class="person-file" name="person-file"/>
+                    <label for="person-file" class="person-label">Choose a file</label>
+                </div>
+                <div class="person-desc"><span>院系：</span><input type="text" placeholder="请输入你所属院系" class="person-input"/></div>
+                <div class="person-desc border-bottom"><span>名称：</span><input type="text" placeholder="请输入你的名称" class="person-input"/></div>
+                <div class="preson-submit"><input type="submit" value="提交"/></div>
+            </div>
+            <button class="return">返回上一级</button>
+        </div>
+    </div>
+</div>
+<script src="../public/js/jquery.js"></script>
+<script src="../public/js/header.js"></script>
+</body>
+</html>

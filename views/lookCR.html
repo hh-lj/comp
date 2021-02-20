@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>查看机房</title>
+    <link rel="stylesheet" href="../public/css/index.css"/>
+    <link rel="stylesheet" href="../public/css/lookCR.css"/>
+</head>
+<body>
+    <div id="app">
+    <header class="header">
+        <div class="container">
+            <div class="header-container">
+                <div class="header-l">
+                    <div class="logo">
+                        <img src="../public/img/header-logo.png" alt=""/>
+                    </div>
+                    <div class="header-meun">
+                        <img src="../public/img/menu.png" alt="菜单"/>
+                        <div class="header-cd">
+                            <ul class="flex-cd">
+                                <li><a href="/index" target="_self">首页</a></li>
+                                <li><a href="/index/lookCR">查看机房</a></li>
+                                <li><a href="/index/person">个人中心</a></li>
+                                <li><a href="">下课</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-r-container">
+                    <div class="header-m">
+                        <input @keydown="search" type="text" v-model="room_name" placeholder="请输入关键词" />
+                        <img @click="search" src="../public/img/search.png" alt="搜索" />
+                    </div>
+                    <div class="header-r">
+                        <p class="header-name">老师，您好！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!--查看机房表格-->
+    <div class="look container-bg">
+        <div class="container">
+            <div class="right">
+                <table class="table">
+                    <tr>
+                        <th>机房号</th>
+                        <th>电脑数量</th>
+                        <th>鼠标数量</th>
+                        <th>键盘数量</th>
+                        <th>其他</th>
+                        <th>是否占用</th>                       
+                    </tr>
+                    <tr v-for="(item,index) in classRoom_list" :key="index">
+                        <td v-cloak>{{item.room_name}}</td>
+                        <td v-cloak>{{item.computer_num}}</td>
+                        <td v-cloak>{{item.mouse_num}}</td>
+                        <td v-cloak>{{item.keyboard_num}}</td>
+                        <td v-cloak>{{item.other}}</td>
+                        <td v-cloak>{{item.condition}}</td>                        
+                    </tr>
+                    
+                </table>                
+                <button class="return">返回上一级</button>
+            </div>
+        </div>
+        
+    </div>
+
+    
+</div>
+</body>
+<script src="../public/js/jquery.js"></script>
+<script src="../public/js/index.js"></script>
+<script src="../public/lib/vue-2.4.0.js"></script>
+<script src="../public/lib/sweetalert.min.js"></script>
+<script src="../public/lib/axios.min.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data() {
+            return {
+                classRoom_list: [],
+                room_name: '',
+                newRoom:[]                 
+            }         
+        },
+        mounted: function () {            
+            // 获取机房列表
+            var that = this;
+            axios.post("/index/list")
+                .then(res => {
+                    console.log(res.data)
+                    that.classRoom_list = res.data;                    
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }, 
+        methods:{
+           search: function (event) {
+                var that = this;
+                // 如果存在event.screenX，则代表是鼠标事件
+                // 如果不存在，则代表是键盘事件
+                if (event.screenX) {
+                    if (that.room_name == "") {
+                        //sweetalert弹出框
+                        swal({
+                            title: "输入的内容为空",
+                            icon: "info",
+                            button: false,
+                            timer: 800,
+                        });
+                        return
+                    }
+                } else {
+                    var e = event || window.event || arguments.callee.caller.arguments[0];
+                    if (e && e.keyCode == 13) {
+                        if (that.room_name == "") {
+                            swal({
+                                title: "输入的内容为空",
+                                icon: "info",
+                                button: false,
+                                timer: 800,
+                            });
+
+                        }
+                    } else {
+                        return
+                    }
+                }
+
+                axios.post("/index/search", {
+                    room_name: that.room_name
+                })
+                    .then(function (response) {
+                        
+                        that.newRoom.push(response.data)
+                        that.classRoom_list = that.newRoom
+                        that.newRoom = []
+                        that.room_name = ''
+                        console.log(that.newRoom)
+                        swal({
+                            title: "查询成功！",
+                            icon: "info",
+                            button: false,
+                            timer: 800,
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+         
+        }              
+})
+</script>
+</html>

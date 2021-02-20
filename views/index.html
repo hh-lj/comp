@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>计算机机房管理</title>
+    <link rel="stylesheet" href="../public/css/index.css"/>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+    <div class="container">
+        <div class="header-container">
+            <div class="header-l">
+                <div class="logo">
+                    <img src="../public/img/header-logo.png" alt=""/>
+                </div>
+                <div class="header-meun">
+                    <img src="../public/img/menu.png" alt="菜单"/>
+                    <div class="header-cd">
+                        <ul class="flex-cd">
+                            <li><a href="/index" target="_self">首页</a></li>
+                            <li><a href="/index/look">查看机房</a></li>
+                            <li><a href="/index/person">个人中心</a></li>
+                            <li><a href="/index/person">下课</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="header-r-container">
+                <div class="header-m">
+                    <input @keydown="search" type="text" v-model="room_name" placeholder="请输入关键词"/>
+                    <img @click="search" src="../public/img/search.png" alt="搜索"/>
+                </div>
+                <div class="header-r">
+                    <p class="header-name">老师，您好！</p>
+                    <button @click="out">退出登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="banner">
+        <div class="container">
+            <p>欢迎来到机房管理系统</p>
+            <p>请点击左上角菜单栏选择您所需要的操作</p>
+        </div>
+        <table class="table">
+            <tr>
+                <th>机房号</th>
+                <th>电脑数量</th>
+                <th>鼠标数量</th>
+                <th>键盘数量</th>
+                <th>其他</th>
+                <th>是否占用</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="(item,index) in classRoom_list" :key="index">
+                <td v-cloak>{{item.room_name }}</td>
+                <td v-cloak>{{item.computer_num }}</td>
+                <td v-cloak>{{item.mouse_num }}</td>
+                <td v-cloak>{{item.keyboard_num }}</td>
+                <td v-cloak>{{item.other }}</td>
+                <td v-cloak>{{item.condition }}</td>
+                <td v-cloak>下课</td>
+            </tr>
+        
+        </table>
+    </div>
+</div>
+<script src="../public/js/jquery.js"></script>
+<script src="../public/js/index.js"></script>
+<script src="../public/lib/vue-2.4.0.js"></script>
+<script src="../public/lib/axios.min.js"></script>
+<script src="../public/lib/sweetalert.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data() {
+            return {
+                classRoom_list: {},
+                room_name: ''
+                
+            }          
+        },
+        
+        methods: {          
+            // 点击按钮搜索博客
+            search: function (event) {
+                var that = this;
+                // 如果存在event.screenX，则代表是鼠标事件
+                // 如果不存在，则代表是键盘事件
+                if (event.screenX) {
+                    if (that.room_name == "") {
+                        //sweetalert弹出框
+                        swal({
+                            title: "输入的内容为空",
+                            icon: "info",
+                            button: false,
+                            timer: 800,
+                        });
+                        return
+                    }
+                } else {
+                    var e = event || window.event || arguments.callee.caller.arguments[0];
+                    if (e && e.keyCode == 13) {
+                        if (that.room_name == "") {
+                            swal({
+                                title: "输入的内容为空",
+                                icon: "info",
+                                button: false,
+                                timer: 800,
+                            });
+                        
+                        }
+                    } else {
+                        return
+                    }
+                }
+
+                axios.post("/index/search", {
+                    room_name: that.room_name
+                })
+                    .then(function (response) {
+                        console.log(response.data)
+                        that.classRoom_list = response.data;
+                        swal({
+                                title: "查询成功！",
+                                icon: "info",
+                                button: false,
+                                timer: 800,
+                            });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+        
+            go:function(){
+                var that = this;
+                axios.post("/index/go")
+                    .then(function (response) {
+                        console.log(response.data)                       
+                        swal({
+                                title: "下课成功！",
+                                icon: "info",
+                                button: false,
+                                timer: 800,
+                            });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            out:function () {
+                localStorage.clear();
+                window.location.href = "/";
+            }
+        }
+    });
+</script>
+</body>
+</html>

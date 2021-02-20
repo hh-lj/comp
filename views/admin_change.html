@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码</title>
+    <link rel="stylesheet" href="../public/css/admin_change.css">
+    <link rel="stylesheet" href="../public/css/index.css">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header-container">
+            <div class="header-l">
+                <div class="logo">
+                    <img src="../public/img/header-logo.png" alt=""/>
+                </div>
+                <div class="header-meun">
+                    <img src="../public/img/menu.png" alt="菜单"/>
+                    <div class="header-cd">
+                        <ul class="flex-cd">
+                            <li><a href="admin_index.html" target="_self">首页</a></li>
+                            <li><a href="admin_lookCR.html">管理机房</a></li>
+                            <li><a href="admin_managerTeacher.html">教师管理</a></li>
+                            <li><a href="admin_repair.html">机房保修</a></li>
+                            <li><a href="admin_change.html">修改密码</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="header-r-container">
+                <div class="header-m">
+                    <input type="text" placeholder="请输入关键词"/>
+                    <img src="../public/img/search.png" alt="搜索"/>
+                </div>
+                <div class="header-r">
+                    <p class="header-name">管理员：您好！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="change container-bg">
+    <div class="container">
+        <div class="change-container">
+            <div class="change-info">
+                <p>请输入新密码：</p>
+                <input type="password" placeholder="请输入新密码" name="pwd" id="pwd" alt="密码"><span id="pwdSpan"></span>
+            </div>
+            <div class="change-info">
+                <p>请输入新密码：</p>
+                <input type="password" placeholder="请再次输入新密码" name="pwd2" id="pwd2" alt="密码" onblur="testPwd2()"><span
+                    id="pwd2Span"></span>
+            </div>
+            <div class="change-info">
+                <p>验证码：</p>
+                <input type="text" id="check" value="" onblur="testCheck()" class="code-input"/><span id="checkSpan"></span>
+                <input type="button" name="" id="" value="刷新" class="code-update" onclick="testCode()"/><span id="checkSpan2">请先刷新</span>
+            </div>
+            <div class="change-submit">
+                <input type="submit" value="提交" onclick="return submit()">
+            </div>
+        </div>
+        <button class="return">返回上一级</button>
+    </div>
+</div>
+</div>
+</body>
+
+<script src="../public/js/jquery.js"></script>
+<script src="../public/js/index.js"></script>
+</body>
+</html>

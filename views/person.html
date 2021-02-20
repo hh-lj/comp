@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="../public/css/index.css"/>
+    <link rel="stylesheet" href="../public/css/person.css"/>
+</head>
+<body>
+    <div id="app">
+    <header class="header">
+        <div class="container">
+            <div class="header-container">
+                <div class="header-l">
+                    <div class="logo">
+                        <img src="../public/img/header-logo.png" alt=""/>
+                    </div>
+                    <div class="header-meun">
+                        <img src="../public/img/menu.png" alt="菜单"/>
+                        <div class="header-cd">
+                            <ul class="flex-cd">
+                                <li><a href="/index" target="_self">首页</a></li>
+                                <li><a href="/index/lookCR">查看机房</a></li>
+                                <li><a href="/index/person">个人中心</a></li>
+                                <li><a href="">下课</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-r-container">
+                    <div class="header-m">
+                        <input type="text" placeholder="请输入关键词"/>
+                        <img src="../public/img/search.png" alt="搜索"/>
+                    </div>
+                    <div class="header-r">
+                        <p class="header-name">老师，您好！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="person container-bg">
+        <div class="container">
+            <div class="right">
+                <div class="person-list">
+                    <div class="person-desc"><span>所属院系：</span><input v-model="department" type="text" placeholder="请输入你所属院系" class="person-input"/></div>
+                    <div class="person-desc"><span>联系电话：</span><input v-model="userTel" type="text" placeholder="请输入你所属院系" class="person-input"/></div>
+                    <div class="person-desc"><span>真实姓名：</span><input v-model="realName" type="text" placeholder="请输入你的真实姓名" class="person-input"/></div>
+                    <div class="preson-submit" @click="save">保存</div>
+                </div>
+                <button class="return">返回上一级</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../public/lib/vue-2.4.0.js"></script>
+<script src="../public/lib/sweetalert.min.js"></script>
+<script src="../public/lib/axios.min.js"></script>
+<script src="../public/js/jquery.js"></script>
+<script src="../public/js/index.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data() {
+            return {              
+                department:"",
+                userTel:"",
+                realName:"",         
+                id: "",                            
+            }          
+        },
+        mounted:function(){
+            // 判断用户是否登录
+            var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+            this.id = userInfo.id;
+            if(userInfo === null){
+                swal({
+                    title: "请先登录",
+                    icon: "info",
+                    button: false,
+                    timer: 800,
+                });
+                this.department = this.userTel =  this.realName = "⊙ω⊙木有啊~";
+               
+            }else{                
+                this.department = userInfo.department;
+                this.userTel = userInfo.userTel;
+                this.realName = userInfo.realName;
+            }
+        },        
+        methods: {          
+            save:function(){
+                var that = this;
+                axios.post("/index/changeInfo", {
+                    id: that.id,
+                    department: that.department,
+                    userTel: that.userTel,
+                    realName: that.realName,                  
+                })
+                .then(function(response){
+                    if(response.data.status){
+                        swal({
+                            title: "修改成功",
+                            icon: "success",
+                            button: false,
+                            timer: 1000,
+                        });
+                        
+                        // 重新缓存用户的信息
+                        var newUserInfo = {
+                            id: that.id,
+                            department: that.department,
+                            userTel: that.userTel,
+                            realName: that.realName,            
+                        };
+                        localStorage.setItem("userInfo", JSON.stringify(newUserInfo));
+                        that.department = that.userTel = that.realName ="";
+                    }else{
+                        swal({
+                            title: "修改失败",
+                            icon: "error",
+                            button: false,
+                            timer: 1000,
+                        });
+                    }
+                })
+                .catch(function(error){
+                    swal({
+                        title: "修改失败",
+                        icon: "error",
+                        button: false,
+                        timer: 1000,
+                    });
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+.repair.container-bg{
+    height:auto;
+}
+.repair .repair-container{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.repair .repair-container .repair-title{
+    margin-top: 50px;
+    font-size: 36px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.repair .repair-container .repair-title em{
+    width: 20px;
+    height: 4px;
+    background-color: #31c2ff;
+    display: block;
+    margin:0 10px;
+}
+.repair .repair-container .repair-desc-container{
+    width: 600px;
+    height: 600px;
+    border: 1px solid #f2f2f2;
+    border-radius: 30px;
+}
+.repair .repair-container  .repair-right .repair-title{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 30px;
+}
+.repair .repair-container  .repair-right .repair-desc-container{
+    box-sizing:border-box;
+    padding-left: 100px;
+    padding-top: 100px;
+}
+.repair .repair-container  .repair-right .repair-desc-container .repair-right-desc-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+}
+.repair .repair-container .repair-right-container{
+    margin: 20px 0;
+    display: flex;
+}
+.repair .repair-container  .repair-info{
+    font-size: 20px;
+    color: #ffffff;
+}
+.repair .repair-container input[type="text"]{
+    width:285px;
+    height:40px;
+    border:1px solid #f2f2f2;
+    background-color: transparent;
+    border-radius: 20px;
+    box-sizing:border-box;
+    padding-left: 20px;
+    outline: none;
+}
+.repair .repair-container textarea{
+    width:300px;
+    height:250px;
+   border:1px solid #f2f2f2;
+    background-color: transparent;
+    border-radius: 20px;
+}
+.repair .repair-container  .repair-submit{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    box-sizing:border-box;
+    padding-right:100px;
+}
+.repair .repair-container  .repair-submit input{
+    width:100px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #00b0f2;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border: none;
+    outline: none;
+    margin-top: 30px;
+    cursor: pointer;
+}
